@@ -10,14 +10,14 @@ Além de facilitar a utilização dos carregadores pelos usuários, o AXIS busca
 
 ## Objetivos
 
-* Facilitar o acesso a estações de recarga para veículos elétricos.
-* Facilitar a instalação e o gerenciamento de novas estações de recarga.
-* Centralizar informações sobre carregadores e estações.
-* Permitir o acompanhamento de sessões de recarga.
-* Monitorar consumo e potência durante as recargas.
-* Auxiliar no gerenciamento da demanda energética.
-* Permitir que comerciantes acompanhem a utilização e o desempenho de seus carregadores.
-* Oferecer suporte à utilização de carregadores em condomínios.
+* Facilitar o acesso a estações de recarga para veículos elétricos;
+* Facilitar a instalação e o gerenciamento de novas estações de recarga;
+* Centralizar informações sobre carregadores e estações;
+* Permitir o acompanhamento de sessões de recarga;
+* Monitorar consumo e potência durante as recargas;
+* Auxiliar no gerenciamento da demanda energética;
+* Permitir que comerciantes acompanhem a utilização e o desempenho de seus carregadores;
+* Oferecer suporte à utilização de carregadores em condomínios;
 * Permitir que administradores acompanhem a infraestrutura de recarga de seus condomínios.
 
 ## Como funciona
