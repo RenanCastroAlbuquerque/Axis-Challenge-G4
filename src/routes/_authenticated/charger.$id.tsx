@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { MapCanvas } from "@/components/MapCanvas";
 import { ChargerImage } from "@/components/ChargerImage";
+import { EnergyControlDialog } from "@/components/EnergyControlDialog";
 import { Metric, MetricStrip } from "@/components/Metric";
 import { Panel, PanelHeader } from "@/components/Panel";
 import { StatusBadge } from "@/components/StatusBadge";
@@ -49,6 +50,7 @@ function ChargerDetail() {
   const [photo, setPhoto] = useState(0);
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(5);
+  const [energyOpen, setEnergyOpen] = useState(false);
 
   useEffect(() => {
     navigator.geolocation?.getCurrentPosition(
@@ -104,6 +106,7 @@ function ChargerDetail() {
       return data.id as string;
     },
     onSuccess: (sessionId) => {
+      setEnergyOpen(false);
       qc.invalidateQueries({ queryKey: ["charger", id] });
       navigate({ to: "/session/$id", params: { id: sessionId } });
     },
@@ -328,7 +331,7 @@ function ChargerDetail() {
                 <Button
                   className="mt-4 w-full"
                   size="lg"
-                  onClick={() => startSession.mutate()}
+                  onClick={() => setEnergyOpen(true)}
                   disabled={startSession.isPending}
                 >
                   <Zap /> {startSession.isPending ? "Iniciando..." : "Iniciar recarga"}
@@ -346,6 +349,23 @@ function ChargerDetail() {
               )}
             </div>
           </Panel>
+
+          <EnergyControlDialog
+            open={energyOpen}
+            onOpenChange={setEnergyOpen}
+            chargerName={charger.name}
+            chargerKw={num(charger.power_kw)}
+            targetKwh={target}
+            pricePerKwh={num(charger.price_per_kwh)}
+            pricePerMinute={num(charger.price_per_minute)}
+            pending={startSession.isPending}
+            onConfirm={(check) => {
+              if (check.decision === "reduced") {
+                toast.warning("Iniciando recarga com potência reduzida");
+              }
+              startSession.mutate();
+            }}
+          />
 
           <Panel>
             <PanelHeader title="Avaliações" description={reviews.length ? undefined : "Seja o primeiro a avaliar"} />
